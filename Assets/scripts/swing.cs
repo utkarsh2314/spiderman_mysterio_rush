@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class swing : MonoBehaviour
 {
-    public Camera mainCamera;
+    public Transform target;
     public LineRenderer _lineRenderer;
     public DistanceJoint2D _distanceJoint;
-    public float jumpforce = 50f;
+    public float jumpforce = 20f;
      public Rigidbody2D rb;
 
 
@@ -21,9 +21,10 @@ public class swing : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Vector2 mousePos =transform.position;
-            mousePos.x+=2;
-            mousePos.y+=5;
+            Vector2 mousePos = transform.position;
+            mousePos.x+=4;
+            Vector2 camPos = target.position;
+            mousePos.y=5+camPos.y;
             _lineRenderer.SetPosition(0,mousePos);
             _lineRenderer.SetPosition(1, transform.position);
             _distanceJoint.connectedAnchor = mousePos;

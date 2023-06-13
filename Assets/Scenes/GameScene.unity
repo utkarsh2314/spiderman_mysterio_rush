@@ -230,6 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowSpeed: 2
   target: {fileID: 2045748288}
+  distance_from_cam: 10
 --- !u!1 &2045748281
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51784068369e0aa43b2389b55f4a434a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 519420031}
+  target: {fileID: 519420032}
   _lineRenderer: {fileID: 2045748282}
   _distanceJoint: {fileID: 2045748283}
   jumpforce: 5

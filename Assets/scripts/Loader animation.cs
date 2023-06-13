@@ -27,7 +27,7 @@ public class Loaderanimation : MonoBehaviour
 
     IEnumerator LoadLevel(int LevelIndex)
     {
-        transition.SetTrigger("start");
+        transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);
 

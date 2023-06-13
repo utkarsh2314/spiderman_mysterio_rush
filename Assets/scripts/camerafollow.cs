@@ -6,7 +6,7 @@ public class camerafollow : MonoBehaviour
 {
     public float FollowSpeed =2f;
     public Transform target;
-    public float distance_from_cam=10f;
+    public float distance_from_cam=20f;
     // Start is called before the first frame update
     void Start()
     {

@@ -11,6 +11,8 @@ public class swing : MonoBehaviour
     public Rigidbody2D rb;
     public float transitionTime = 0.1f;
     public float maxy=10f;
+    public float maxSpeed=10f;
+
     void Start()
     {
         _distanceJoint.enabled = false;
@@ -19,6 +21,15 @@ public class swing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 currentVelocity = rb.velocity;
+        float currentSpeed = currentVelocity.magnitude;
+
+        if (currentSpeed > maxSpeed)
+        {
+        Vector3 clampedVelocity = currentVelocity.normalized * maxSpeed;
+        rb.velocity = clampedVelocity;
+        }
+        else{
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Vector3 mousePos = transform.position;
@@ -44,8 +55,9 @@ public class swing : MonoBehaviour
         if(rb.position.y>maxy){
             _distanceJoint.enabled = false;
             _lineRenderer.enabled = false;
-            Vector2 zero= new Vector2(0,0);
+            Vector2 zero= new Vector2(10,0);
             rb.velocity=zero;
+        }
         }
     }
     IEnumerator ApplyForce(float jumpforce)

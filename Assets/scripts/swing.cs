@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class swing : MonoBehaviour
 {
+    
     public Transform target;
     public LineRenderer _lineRenderer;
     public DistanceJoint2D _distanceJoint;
@@ -11,7 +12,11 @@ public class swing : MonoBehaviour
     public Rigidbody2D rb;
     public float transitionTime = 0.1f;
     public float maxy=10f;
+    public float miny=0f;
     public float maxSpeed=10f;
+    public gameover gameover;
+    
+    [SerializeField] private AudioSource obstableaudio;
 
     void Start()
     {
@@ -21,6 +26,11 @@ public class swing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(rb.position.y<miny){
+            obstableaudio.Play();
+            Destroy(gameObject);
+            gameover.Setup();
+        }
         Vector3 currentVelocity = rb.velocity;
         float currentSpeed = currentVelocity.magnitude;
 
@@ -55,7 +65,7 @@ public class swing : MonoBehaviour
         if(rb.position.y>maxy){
             _distanceJoint.enabled = false;
             _lineRenderer.enabled = false;
-            Vector2 zero= new Vector2(10,0);
+            Vector2 zero= new Vector2(10,-2);
             rb.velocity=zero;
         }
         }

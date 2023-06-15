@@ -21,14 +21,20 @@ public class collector : MonoBehaviour
         }
         if(collider2D.gameObject.CompareTag("enemy")){
             enemydeath.Play();
-            Destroy(collider2D.gameObject);
             enemypoints++;
             displayscore.Setupenemy(enemypoints);
+            StartCoroutine(DelayedDestroy(collider2D.gameObject));
         }
         if(collider2D.gameObject.CompareTag("obstacle")){
             obstableaudio.Play();
             Destroy(gameObject);
             gameover.Setup();
         }
+    }
+     private IEnumerator DelayedDestroy(GameObject obj)
+    {
+
+        yield return new WaitForSeconds(0.4f);
+        Destroy(obj);
     }
 }

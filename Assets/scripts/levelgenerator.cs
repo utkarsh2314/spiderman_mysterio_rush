@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class levelgenerator : MonoBehaviour
+public class LevelGenerator : MonoBehaviour
 {
-    private const float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 200f;
+    private const float PLAYER_DISTANCE_SPAWN_LEVEL_PART = 20f;
 
     [SerializeField] private Transform levelPart_Start;
     [SerializeField] private List<Transform> levelPartList;
@@ -16,15 +16,11 @@ public class levelgenerator : MonoBehaviour
     {
         lastEndPosition = levelPart_Start.Find("endposition").position;
 
-        int startingSpawnLevelParts = 5;
-        for (int i = 0; i < startingSpawnLevelParts; i++)
-        {
-            SpawnLevelPart();
-        }
     }
 
     private void Update()
     {
+        Debug.Log(Vector3.Distance(player.transform.position, lastEndPosition));
         if (Vector3.Distance(player.transform.position, lastEndPosition) < PLAYER_DISTANCE_SPAWN_LEVEL_PART)
         {
             SpawnLevelPart();
@@ -34,13 +30,10 @@ public class levelgenerator : MonoBehaviour
     private void SpawnLevelPart()
     {
         Transform chosenLevelPart = levelPartList[Random.Range(0, levelPartList.Count)];
-        Transform lastLevelPartTransform = SpawnLevelPart(chosenLevelPart, lastEndPosition);
-        lastEndPosition = lastLevelPartTransform.Find("endposition").position;
-    }
+        Vector3 spawnPosition = lastEndPosition;
+        Quaternion spawnRotation = Quaternion.identity;
 
-    private Transform SpawnLevelPart(Transform levelPart, Vector3 spawnPosition)
-    {
-        Transform levelPartTransform = Instantiate(levelPart, spawnPosition, Quaternion.identity);
-        return levelPartTransform;
+        Transform levelPartTransform = Instantiate(chosenLevelPart, spawnPosition, spawnRotation);
+        lastEndPosition = levelPartTransform.Find("endposition").position;
     }
 }

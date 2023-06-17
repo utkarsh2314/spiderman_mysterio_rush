@@ -11,6 +11,7 @@ public class collector : MonoBehaviour
     [SerializeField] private AudioSource enemydeath;
     public displayscore displayscore;
     public gameover gameover;
+    public winner winner;
 
     private void OnTriggerEnter2D(Collider2D collider2D){
         if(collider2D.gameObject.CompareTag("coin")){
@@ -30,11 +31,22 @@ public class collector : MonoBehaviour
             Destroy(gameObject);
             gameover.Setup();
         }
+        if(collider2D.gameObject.CompareTag("mysterio")){
+            enemydeath.Play();
+            StartCoroutine(DelayedDestroy(collider2D.gameObject));
+            StartCoroutine(win());
+        }
     }
-     private IEnumerator DelayedDestroy(GameObject obj)
+    private IEnumerator DelayedDestroy(GameObject obj)
+    {
+    
+        yield return new WaitForSeconds(0.4f);
+        Destroy(obj);
+    }
+    private IEnumerator win()
     {
 
         yield return new WaitForSeconds(0.4f);
-        Destroy(obj);
+        winner.Setitup();
     }
 }

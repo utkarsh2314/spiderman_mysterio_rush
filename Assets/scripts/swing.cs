@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class swing : MonoBehaviour
 {
-    
+    public Animator transition;
     public Transform target;
     public LineRenderer _lineRenderer;
     public DistanceJoint2D _distanceJoint;
@@ -56,6 +56,7 @@ public class swing : MonoBehaviour
         else if(Input.GetKeyUp(KeyCode.Mouse0))
         {
             _distanceJoint.enabled = false;
+            transition.SetTrigger("start");
             _lineRenderer.enabled = false;
         }
         if(_distanceJoint.enabled)
